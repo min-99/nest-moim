@@ -24,7 +24,10 @@ export class AuthService {
       sub: user.userId,
     });
     const refreshToken = this.jwtService.sign(
-      { sub: user.userId },
+      {
+        username: user.username,
+        sub: user.userId,
+      },
       {
         secret: jwtConstants.refreshSecret,
         expiresIn: '1440m',

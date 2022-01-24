@@ -30,7 +30,7 @@ export class AppController {
   }
 
   @UseGuards(JwtRefreshGuard)
-  @Post('auth/refresh')
+  @Get('auth/refresh')
   async refresh(@Request() req) {
     return this.authService.login(req.user);
   }

@@ -10,13 +10,13 @@ export class JwtRefreshStrategy extends PassportStrategy(
 ) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromUrlQueryParameter('token'),
       ignoreExpiration: false,
       secretOrKey: jwtConstants.refreshSecret,
     });
   }
 
   async validate(payload: any) {
-    return { userId: payload.sub };
+    return { userId: payload.sub, username: payload.username };
   }
 }
