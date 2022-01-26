@@ -359,7 +359,12 @@ export class MyMoimsService {
   ];
   async myMoims({ page, size, sort }: any) {
     return {
-      data: this.myMoimData.slice(size * (page - 1), size * page),
+      code: 200,
+      data: {
+        totalCount: this.myMoimData.length,
+        hasMore: this.myMoimData.length / size > page,
+        items: this.myMoimData.slice(size * (page - 1), size * page),
+      },
     };
   }
 }

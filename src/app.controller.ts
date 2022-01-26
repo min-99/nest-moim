@@ -1,4 +1,11 @@
-import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -25,11 +32,6 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
-  @Get('myMoims')
-  async myMoims(@Request() req) {
-    return this.myMoimsService.myMoims(req);
-  }
-
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
@@ -40,5 +42,11 @@ export class AppController {
   @Get('auth/refresh')
   async refresh(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('myMoims')
+  async myMoims(@Query('page') page, @Query('size') size) {
+    return this.myMoimsService.myMoims({ page, size });
   }
 }
