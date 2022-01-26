@@ -4,12 +4,14 @@ import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { AppService } from './app.service';
 import { JwtRefreshGuard } from './auth/jwt-refresh.guard';
+import { MyMoimsService } from './myMoims/myMoims.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private authService: AuthService,
+    private myMoimsService: MyMoimsService,
   ) {}
 
   @Get()
@@ -21,6 +23,11 @@ export class AppController {
   @Post('auth/login')
   async login(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  @Get('myMoims')
+  async myMoims(@Request() req) {
+    return this.myMoimsService.myMoims(req);
   }
 
   @UseGuards(JwtAuthGuard)
