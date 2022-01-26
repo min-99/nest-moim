@@ -7,11 +7,9 @@ import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { MyMoimsModule } from 'src/myMoims/myMoims.module';
 
 @Module({
   imports: [
-    MyMoimsModule,
     UsersModule,
     PassportModule,
     JwtModule.register({
