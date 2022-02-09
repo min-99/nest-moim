@@ -1,24 +1,12 @@
 import { Injectable } from '@nestjs/common';
-
-// This should be a real class/interface representing a user entity
-export type User = any;
+import { MocksService } from 'src/mocks/mocks.service';
 
 @Injectable()
 export class UsersService {
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'raina',
-      password: 'raina1234',
-    },
-    {
-      userId: 2,
-      username: 'ward',
-      password: 'ward1234',
-    },
-  ];
+  constructor(private readonly mocksService: MocksService) {}
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+  async findOne(username: string) {
+    const users = await this.mocksService.getUsers();
+    return users.find((user) => user.username === username);
   }
 }
